@@ -1,0 +1,313 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <link rel="stylesheet" href="{% static 'css/icons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/uikit.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
+    <link rel="stylesheet" href="{% static 'css/post.css' %}">
+    <link rel="stylesheet" href="{% static 'css/quote.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    {% include 'quotes/navbar/nav.html' %}
+
+
+    <div class="container m-auto">
+        <div class="lg:flex justify-center lg:space-x-10 lg:space-y-0 space-y-5">
+            <!-- left sidebar-->
+            <div class="space-y-5 flex-shrink-0 lg:w-7/12">
+                <!-- post 1-->
+                <div class="bg-white shadow rounded-md  -mx-2 lg:mx-0">
+                    <!-- post header-->
+                    <div class="flex justify-between items-center px-4 py-3">
+                        <div class="flex flex-1 items-center space-x-4">
+
+                            <span class="block font-semibold "><a
+                                    href="{% url 'profile:users_detail_urls' user.slug %}">@{{post.editor}}</a></span>
+                        </div>
+                        {% if user == post.editor %}
+                        <div>
+                            <a href="{% url 'love:change_quotes_urls' post.id %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25"
+                                    viewBox="0 0 50 50">
+                                    <path
+                                        d="M 43.050781 1.9746094 C 41.800781 1.9746094 40.549609 2.4503906 39.599609 3.4003906 L 38.800781 4.1992188 L 45.699219 11.099609 L 46.5 10.300781 C 48.4 8.4007812 48.4 5.3003906 46.5 3.4003906 C 45.55 2.4503906 44.300781 1.9746094 43.050781 1.9746094 z M 37.482422 6.0898438 A 1.0001 1.0001 0 0 0 36.794922 6.3925781 L 4.2949219 38.791016 A 1.0001 1.0001 0 0 0 4.0332031 39.242188 L 2.0332031 46.742188 A 1.0001 1.0001 0 0 0 3.2578125 47.966797 L 10.757812 45.966797 A 1.0001 1.0001 0 0 0 11.208984 45.705078 L 43.607422 13.205078 A 1.0001 1.0001 0 1 0 42.191406 11.794922 L 9.9921875 44.09375 L 5.90625 40.007812 L 38.205078 7.8085938 A 1.0001 1.0001 0 0 0 37.482422 6.0898438 z">
+                                    </path>
+                                </svg>
+                            </a>
+                        </div>
+                        {% endif %}
+                        {{post.created}}
+                    </div>
+                    <!-- LIST POST  -->
+                    <div class="py-3 px-4 space-y-3">
+
+                        {% if post.design == 'D1' %}
+                        {% include 'design/d1.html' with post=post %}
+                        {% elif post.design == 'D2' %}
+                        {% include 'design/d2.html' with post=post %}
+                        {% else %}
+                        {% include 'design/d3.html' with post=post %}
+                        {% endif %}
+
+                        <!-- LIKE  -->
+                        <div class="flex space-x-4 lg:font-bold">
+                            <div class="p-2 rounded-full text-black">
+                                <form action="{% url 'love:like_urls' %}" method="POST" class="like-form"
+                                    id={{post.id}}>
+                                    {% csrf_token %}
+                                    <input type="hidden" name="post_id" value={{post.id}}>
+
+                                    {% if user in post.liked.all %}
+                                    <button type="submit" class="like_btn{{ post.id }}" name='liked'
+                                        style="color:#0a8635;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                            width="25" height="25" class="">
+                                            <path
+                                                d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
+                                        </svg>
+                                    </button>
+                                    {% else %}
+                                    <button type="submit" class="like_btn{{ post.id }}" name="unliked">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                            width="25" height="25" class="">
+                                            <path
+                                                d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
+                                        </svg>
+                                    </button>
+                                    {% endif %}
+
+                                    <div class="like-count{{ post.id }}"> {{post.liked.count}} </div>
+                                </form>
+                            </div>
+
+                        </div>
+
+                        <p>
+                            <a href="/profile/{{post.user}}"><strong>{{post.user}}</strong></a> {{post.caption}}
+                        </p>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comment  -->
+    <h3>Комментарии</h3>
+    <div class="comment-section" style="background-color: white;
+        box-shadow: 0 2px 5px 0 var(--shadow);
+        border-radius: 20px;
+        padding: 15px;
+        margin-bottom: 20px;
+        width: 1000px;">
+        <form action="{% url 'love:comment_urls' %}" method="POST" class='comment-form'>
+            {% csrf_token %}
+            <input type="hidden" class='post_id' name="post_id" value={{post.pk}}>
+            <textarea class="comment_body" rows="4" cols="50" placeholder="Оставьте комментарий" style="resize: none;"></textarea>
+            <button type="submit" name="submit_c_form" id="submit-comment">
+                Опубликовать
+            </button>
+        </form>
+    </div>
+    <hr>
+
+    <div class="comment_set">
+        {% if post.quotes_comment.exists %}
+        {% for comment in post.quotes_comment.all %}
+        <b>{{ comment.user }}:</b>
+        {{ comment.body }}
+
+        <!-- COMMENT LIKE  -->
+        <form action="{% url 'love:comment_like_urls' %}" method="POST" class="comment_like-form" id={{comment.id}}>
+            {% csrf_token %}
+            <input type="hidden" name="comment_id" value={{comment.id}}>
+
+            {% if user in comment.liked.all %}
+            <button type="submit" class="comment_like_btn{{ comment.id }}" name='liked' style="color: green;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="25" height="25"
+                    class="">
+                    <path
+                        d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
+                </svg>
+            </button>
+            {% else %}
+            <button type="submit" class="comment_like_btn{{ comment.id }}" name="unliked" style="color: black;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="25" height="25"
+                    class="">
+                    <path
+                        d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
+                </svg>
+            </button>
+            {% endif %}
+
+            <div class="comment_like-count{{comment.id }}"> {{comment.liked.count}} </div>
+        </form>
+
+        <hr>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+
+
+    <script>
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        $('#submit-comment').click(function (e) {
+            e.preventDefault();
+            var url = $('.comment-form').attr("action");
+            var post_id = $('.post_id').attr("value");
+            var body = $('.comment_body').val();
+            const csrftoken = getCookie('csrftoken');
+
+            console.log(post_id)
+            console.log(body)
+
+            $.ajax({
+                method: "POST",
+                url: url,
+                headers: { 'X-CsrfToken': csrftoken },
+                data: JSON.stringify(
+                    {
+                        'post_id': post_id,
+                        'body': body,
+
+                    }),
+                success: function (comment) {
+                    console.log('BODY', comment.body)
+                    $('.comment_body').val('');
+                    $('.comment_set').append(
+                        `<b>${comment.first_name}</b> <b>${comment.last_name}:</b> ${comment.body} <hr>`
+                    );
+                }
+            });
+        });
+
+        $(document).ready(function () {
+
+            $('.like-form').submit(function (event) {
+                event.preventDefault()
+                const post_id = $(this).attr('id')
+
+                let res;
+                const likes = $(`.like-count${post_id}`).text()
+                const trimCount = parseInt(likes)
+
+                const csrftoken = getCookie('csrftoken');
+                $.ajax({
+                    method: "POST",
+                    url: "{% url 'love:like_urls' %}",
+                    headers: { 'X-CsrfToken': csrftoken },
+                    data:
+                    {
+                        'post_id': post_id,
+                    },
+                    success: function (response) {
+                        selector = $(`.like_btn${post_id}`);
+                        if (response.liked) {
+                            $(selector).css('color', 'green')
+                            res = trimCount + 1
+                        }
+                        else {
+                            $(selector).css('color', 'black')
+                            res = trimCount - 1
+                        }
+                        $(`.like-count${post_id}`).text(res)
+                    },
+                    error: function (er, response) {
+                        console.log(er, response)
+                    }
+
+
+                });
+
+            })
+        })
+
+        $(document).ready(function () {
+
+            $('.comment_like-form').submit(function (event) {
+                event.preventDefault()
+                const post_id = $(this).attr('id')
+                console.log(post_id)
+
+                let res;
+                const likes = $(`.comment_like-count${post_id}`).text()
+                const trimCount = parseInt(likes)
+
+                const csrftoken = getCookie('csrftoken');
+                $.ajax({
+                    method: "POST",
+                    url: "{% url 'love:comment_like_urls' %}",
+                    headers: { 'X-CsrfToken': csrftoken },
+                    data:
+                    {
+                        'post_id': post_id,
+                    },
+                    success: function (response) {
+                        selector = $(`.comment_like_btn${post_id}`);
+                        if (response.comment_liked) {
+                            $(selector).css('color', 'green')
+                            res = trimCount + 1
+                        }
+                        else {
+                            $(selector).css('color', 'black')
+                            res = trimCount - 1
+                        }
+                        $(`.comment_like-count${post_id}`).text(res)
+                    },
+                    error: function (er, response) {
+                        console.log(er, response)
+                    }
+
+
+                });
+
+            })
+        })
+
+
+    </script>
+
+
+
+
+</body>
+
+
+</html>

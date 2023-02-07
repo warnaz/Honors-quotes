@@ -1,0 +1,53 @@
+{% load static %}
+<style>
+
+    .quote {
+        text-align: center;
+        font-family: 'Oswald', sans-serif;
+        color: rgb(0, 0, 0);
+        background-image: url(https://memepedia.ru/wp-content/uploads/2017/09/Ng8e3XkpPgg.jpg);
+        background-position: center center;
+    }
+
+    .quote::before,
+    .quote::after {
+        content: '';
+        display: block;
+        margin: 0 1.5rem;
+        padding: 15% 0.5rem;
+        border: 5px solid;
+    }
+
+    .quote:before {
+        margin-bottom: 0;
+        border-bottom: 0;
+        box-shadow: 0 -3px 5px rgba(0, 0, 0, .3);
+    }
+
+    .quote::after {
+        margin-top: 0;
+        border-top: 0;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+    }
+
+    .quote h1 {
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: normal;
+        text-shadow: 0 0 5px rgba(0, 0, 0, .3);
+    }
+
+    .quote-line {
+        display: block;
+    }
+
+
+</style>
+<blockquote class="quote">
+    <h1>
+        <!-- <spane class="quote-line quote-line--border"></spane> -->
+        <span class="quote-line" style="color:black">{{ post }}</span>
+    </h1>
+    <span>Автор: <a href="{% url 'profile:users_detail_urls' post.author.slug %}" style="color: black;">{{ post.author }}</a></span>
+</blockquote>

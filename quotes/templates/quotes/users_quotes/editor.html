@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load quotes_tag %}
+
+{% block link_css %}
+<title>{{ user_slug.slug }}'s quotes</title>
+{% endblock %}
+
+{% block content %}
+<h2 style="margin-top: 50px; margin-left: 230px;">{{ user_slug }} является редактором следующих цитат</h2>
+
+{% show_quotes request=request name='editor' slug=user_slug.pk %}
+{% endblock %}

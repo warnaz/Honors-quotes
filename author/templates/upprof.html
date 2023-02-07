@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change profile</title>
+</head>
+
+<body>
+    <h1><a href="{% url 'love:home_urls' %}">Home</a></h1>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit">Обновить</button>
+    </form>
+    <h2><a href="{% url 'profile:password_reset' %}">Изменить пароль</a></h2>
+</body>
+
+</html>

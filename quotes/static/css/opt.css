@@ -1,0 +1,37 @@
+#d2 {
+  margin: 0;
+  background: #FFF4ED;
+  padding: 40px;
+  color: #3F484D;
+  position: relative;
+  font-family: 'Lato', sans-serif;
+  text-align: center;
+  }
+  #d2:before, #d2:after {
+  font-size: 45px;
+  color: #3CA1D9;
+  position: absolute;
+  height: 2px;
+  left: 40px;
+  right: 40px;
+  line-height: .5;
+  background: linear-gradient(to right, #3CA1D9 45%, transparent 45%, transparent), linear-gradient(to right, transparent, transparent 55%, #3CA1D9 55%);
+  font-family: serif;
+  }
+  #d2:before {
+  content: "\201C";
+  top: 30px;
+  }
+  blockquote:after {
+  content: "\201D";
+  bottom: 30px;
+  }
+  blockquote p {
+  font-size: 20px;
+  }
+  #d2 footer {
+  margin-bottom: 1em;
+  }
+  #d2 cite {
+  font-style: normal;
+  }

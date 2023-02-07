@@ -1,0 +1,198 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{%static 'css/users/user_detail.css'%}">
+    <link rel="stylesheet" href="{%static 'css/users/charts.css'%}">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+        <div class="card p-4">
+            <div class=" image d-flex flex-column justify-content-center align-items-center">
+                <div><a href="{% url 'love:home_urls' %}" style="color:black; margin-right: 250px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="50px">
+                            <path
+                                d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z" />
+                        </svg></a></div>
+                {% if user == user_now %}
+                <button class="btn btn-secondary">
+                    <a href="{% url 'profile:upprof_urls' user.slug %}"><img src="{{ user.image.url }}" height="100"
+                            width="100" style="border-radius: 100%;" /></a>
+                </button>
+                {% else %}
+                <button class="btn btn-secondary">
+                    <img src="{{ user.image.url }}" height="100"
+                            width="100" style="border-radius: 100%;"/>
+                </button>
+                {% endif %}
+                <span class="name mt-3">@{{user}}</span>
+                <div class="d-flex flex-row justify-content-center align-items-center mt-3">
+                    <span class="follow"><a href="{% url 'love:editor_quotes_urls' user.slug %}"
+                            style="color: black;">Editor <span class="number">{{ user.quotes_editor.all.count }}</span>
+                            quotes</span></a>
+                </div>
+                <div class="d-flex flex-row justify-content-center align-items-center mt-3">
+                    <span class="follow"><a href="{% url 'love:author_quotes_urls' user.slug %}" style="color: black;">
+                            Author <span class="number">{{ user.quotes_author.all.count }}</span>
+                            quotes</span></a>
+                </div>
+
+                <!-- Тип личности -->
+
+                {% if data_clear.0.value != data_clear.1.value %}
+                {% if data_clear.0.category == 'Любовь' %}
+                {% include 'quotes/pers_type/romantic.html' %}
+                {% elif data_clear.0.category == 'Смех' %}
+                {% include 'quotes/pers_type/standup.html' %}
+                {% elif data_clear.0.category == 'Грусть' %}
+                {% include 'quotes/pers_type/depress.html' %}
+                {% elif data_clear.0.category == 'Пошлость' %}
+                {% include 'quotes/pers_type/vulgarity.html' %}
+                {% elif data_clear.0.category == 'Сарказм' %}
+                {% include 'quotes/pers_type/toxic.html' %}
+                {% endif %}
+                {% else %}
+                {% if data_clear.0.category == "Любовь" and data_clear.1.category == 'Пошлость'%}
+                {% include 'quotes/pers_type/conf.html' %}
+                {% elif data_clear.0.category == "Любовь" and data_clear.1.category == 'Смех' %}
+                {% include 'quotes/pers_type/happy.html' %}
+                {% elif data_clear.0.category == "Любовь" and data_clear.1.category == 'Грусть' %}
+                {% include 'quotes/pers_type/psyh.html' %}
+                {% elif data_clear.0.category == "Любовь" and data_clear.1.category == 'Сарказм' %}
+                {% include 'quotes/pers_type/blood.html' %}
+                {% endif %}
+                {% endif %}
+
+                <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center">
+                    <span><i class="fa fa-telegram" aria-hidden="true"></i></span>
+                    <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-tiktok" viewBox="0 0 16 16">
+                            <path
+                                d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3V0Z" />
+                        </svg></span>
+                    <span><i class="fa fa-instagram"></i></span>
+                    <span><i class="fa fa-vk" aria-hidden="true"></i></span>
+                </div>
+                <div class=" px-2 rounded mt-4 date "> <span class="join">Joined February,2023</span> </div>
+            </div>
+        </div>
+    </div>
+
+    {% if data_ser %}
+    <!-- Styles -->
+    <style>
+        #chartdiv {
+            width: 800px;
+            height: 500px;
+            margin-left: 100px;
+        }
+    </style>
+
+    
+    <!-- Resources -->
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <script src="//cdn.amcharts.com/lib/5/themes/Dark.js"></script>
+
+    <!-- Chart code -->
+
+    <script>
+        am5.ready(function () {
+
+            // Create root element
+            // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+            var root = am5.Root.new("chartdiv");
+
+
+            // Set themes
+            // https://www.amcharts.com/docs/v5/concepts/themes/
+            root.setThemes([
+                am5themes_Animated.new(root),
+                am5themes_Dark.new(root),
+            ]);
+
+
+            // Create chart
+            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
+            var chart = root.container.children.push(am5percent.PieChart.new(root, {
+                layout: root.verticalLayout
+            }));
+
+
+            // Create series
+            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
+            var series = chart.series.push(am5percent.PieSeries.new(root, {
+                alignLabels: true,
+                calculateAggregates: true,
+                valueField: "value",
+                categoryField: "category"
+            }));
+
+            series.slices.template.setAll({
+                strokeWidth: 3,
+                stroke: am5.color(0xffffff)
+            });
+
+            series.labelsContainer.set("paddingTop", 30)
+
+
+            // Set up adapters for variable slice radius
+            // https://www.amcharts.com/docs/v5/concepts/settings/adapters/
+            series.slices.template.adapters.add("radius", function (radius, target) {
+                var dataItem = target.dataItem;
+                var high = series.getPrivate("valueHigh");
+
+                if (dataItem) {
+                    var value = target.dataItem.get("valueWorking", 0);
+                    return radius * value / high
+                }
+                return radius;
+            });
+
+
+            // Set data
+            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
+            var data_ser = JSON.parse('{{ data_ser|safe }}')
+            series.data.setAll(data_ser);
+
+
+            // Create legend
+            // https://www.amcharts.com/docs/v5/charts/percent-charts/legend-percent-series/
+            var legend = chart.children.push(am5.Legend.new(root, {
+                centerX: am5.p50,
+                x: am5.p50,
+                marginTop: 15,
+                marginBottom: 15,
+            }));
+
+            legend.data.setAll(series.dataItems);
+
+
+            // Play initial series animation
+            // https://www.amcharts.com/docs/v5/concepts/animations/#Animation_of_series
+            series.appear(2500, 100);
+
+        }); // end am5.ready()
+    </script>
+
+    <!-- HTML -->
+
+
+    <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+
+        <div id="chartdiv"></div>
+    </div>
+    {% endif %}
+</body>
+
+</html>

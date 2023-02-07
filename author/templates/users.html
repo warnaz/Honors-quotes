@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" /> -->
+
+    <link rel="stylesheet" href="{% static 'css/users/users.css' %}">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-sm-8 col-lg-2">
+                <!-- Section Heading-->
+                <div class="section_heading text-center wow fadeInUp" data-wow-delay="0.2s"
+                    style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+                    <h1><a href="{% url 'love:home_urls' %}">Home</a></h1>
+                    <div class="line"></div>
+                </div>
+            </div>
+        </div>
+        {% for user in users %}
+        <!-- Single Advisor-->
+        <div class="col-lg-2">
+            <a href="{% url 'profile:users_detail_urls' user.slug %}">
+                <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.2s"
+                    style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+                    <!-- Team Thumb-->
+                    <div class="advisor_thumb"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                        <!-- Social Info-->
+                        <div class="social-info"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i
+                                    class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-linkedin"></i></a></div>
+                    </div>
+                    <!-- Team Details-->
+                    <div class="single_advisor_details_info">
+                        <h5>{{ user }}</h5>
+                    </div>
+            </a>
+        </div>
+    </div>
+
+    {% endfor %}
+    </div>
+</body>
+
+</html>

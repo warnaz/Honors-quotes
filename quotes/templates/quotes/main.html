@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load quotes_tag %}
+
+{% block link_css %}
+<title>Home</title>
+{% endblock %}
+
+{% block create_post %}
+<!-- Create Quotes -->
+<div class="container m-auto">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="createPost">
+
+            <h3 class="mini-headign">Create Quotes</h3>
+            <div class="post-text">
+
+                    <div class="forms-quote">
+                        {{ quote_form.quotes }}
+                    </div>
+                
+
+                <div class="forms-category">
+                    <div id="id_category">
+                        <div>
+                            <input type="checkbox" name="category" value="Пошлость" id="id_category_0">
+                            <label for="id_category_0">Пошлость</label>
+
+                        </div>
+                        <div>
+                            <input type="checkbox" name="category" value="Любовь" id="id_category_1">
+                            <label for="id_category_1">Любовь</label>
+
+                        </div>
+                        <div>
+                            <input type="checkbox" name="category" value="Смех" id="id_category_2">
+                            <label for="id_category_2"> Смех</label>
+
+                        </div>
+                        <div>
+                            <input type="checkbox" name="category" value="Грусть" id="id_category_3">
+                            <label for="id_category_3">Грусть</label>
+
+                        </div>
+                        <div>
+                            <input type="checkbox" name="category" value="Сарказм" id="id_category_4">
+                            <label for="id_category_4">Сарказм</label>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="forms-author">
+                    {{ quote_form.author }}
+                </div>
+
+                <div class="forms-design">
+                    {{ quote_form.design }}
+                </div>
+
+
+            </div>
+            <button type="submit" name="submit_p_form" class="button_class">
+                Опубликовать
+            </button>
+        </div>
+
+    </form>
+
+</div>
+{% endblock %}
+
+
+{% block content %}
+{% show_quotes request=request name='quotes' %}
+
+{% endblock %}

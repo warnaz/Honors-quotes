@@ -1,0 +1,26 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: 
+ =?utf-8?b?0KHQsdGA0L7RgSDQv9Cw0YDQvtC70Y8g0L3QsCBsb2NhbGhvc3Q6ODAwMA==?=
+From: webmaster@localhost
+To: mshamilev65@gmail.com
+Date: Mon, 19 Dec 2022 12:16:14 -0000
+Message-ID: <167145217489.12432.6821431680520043846@LAPTOP-GBGUSUAS>
+
+
+Вы получили это письмо, потому что вы (или кто-то другой) запросили восстановление пароля от учётной записи на сайте localhost:8000, которая связана с этим адресом электронной почты.
+
+Пожалуйста, перейдите на эту страницу и введите новый пароль:
+
+http://localhost:8000/accounts/reset/MTI/bgoqf2-d4ea3dfd766588d9656492d1a090373b/
+
+Ваше имя пользователя (на случай, если вы его забыли): Нажават
+
+Спасибо, что используете наш сайт!
+
+Команда сайта localhost:8000
+
+
+
+-------------------------------------------------------------------------------

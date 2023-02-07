@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block link_css %}
+<title>Change quote</title>
+{% endblock %}
+
+{% block nav %}
+<h1 style="margin-left: 100px;"><a href="{% url 'love:home_urls' %}" style="color: black;">Home</a></h1>
+{% endblock %}
+
+{% block content %}
+<div class="container m-auto">
+    <div class="lg:flex justify-center lg:space-x-10 lg:space-y-0 space-y-5">
+
+        <!-- left sidebar-->
+        <div class="space-y-5 flex-shrink-0 lg:w-7/12">
+
+            <!-- post 1-->
+            <div class="bg-white shadow rounded-md  -mx-2 lg:mx-0">
+                <!-- post header-->
+                <div class="flex justify-between items-center px-4 py-3">
+
+                    <div class="flex flex-1 items-center space-x-4">
+
+                        <span class="block font-semibold "><a
+                                href="{% url 'love:users_detail_urls' post.editor.slug %}">@{{post.editor}}</a>
+                        </span>
+
+                    </div>
+                    <div style="padding-right: 15px;">
+                        {{ post.created }}
+
+                    </div>
+                </div>
+                <!-- LIST POST  -->
+                <div class="py-3 px-4 space-y-3">
+
+                    {% if post.design == 'D1' %}
+                    {% include 'design/d1.html' with post=post %}
+                    {% elif post.design == 'D2' %}
+                    {% include 'design/d2.html' with post=post %}
+                    {% else %}
+                    {% include 'design/d3.html' with post=post %}
+                    {% endif %}
+
+                    <div class="flex space-x-4 lg:font-bold">
+                        <div class="p-2 rounded-full text-black">
+
+                            <span><a href="{% url 'love:update_quotes_urls' post.pk %}">Редактировать</a></span>
+
+                        </div>
+                            <div class="p-2 rounded-full text-black">
+                               <span><a href="{% url 'love:delete_post_urls' post.pk %}">Удалить</a></span>
+                            </div>
+                            <div>
+                                {% for cat in post.category.all %}
+                                <span style="color: gray; font-size: 15px;">{{cat}}</span>
+                                {% endfor %}
+                            </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

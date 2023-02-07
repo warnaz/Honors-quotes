@@ -1,0 +1,53 @@
+<header>
+    <div class="header_inner">
+        <form action="/search" method="POST">
+            {% csrf_token %}
+            <div class="left-side">
+                <input type="text" name="username" placeholder="Search for username..">&nbsp; &nbsp;
+                <button type="submit"><i class="fa fa-search fa-1x"></i></button>
+            </div>
+        </form>
+        <h4 style="margin-left: 20px;margin-top: 20px;"><a href="">Home</a></h4>
+        <h4 style="margin-left: 20px;margin-top: 21px;"><a href="{% url 'love:editor_quotes_urls' user.slug %}">I'm editor</a></h4>
+        <h4 style="margin-left: 20px;margin-top: 21px;"><a href="{% url 'love:author_quotes_urls' user.slug %}">I'm author</a></h4>
+        <h4 style="margin-left: 20px;margin-top: 21px;"><a href="{% url 'love:users_urls' %}">Quoters</a></h4>
+        <div class="right-side">
+            <a href="{% url 'love:users_detail_urls' user.slug %}">
+                <img src="{% static 'img/gosling.jpg' %}" class="header-avatar" alt="">
+            </a>
+        </div>
+
+    </div>
+</header>
+
+
+
+<nav class="navbar navbar-expand-custom navbar-mainbg">
+    <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <i class="fas fa-bars text-white"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <div class="hori-selector">
+                <div class="left"></div>
+                <div class="right"></div>
+            </div>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'love:home_urls'%}"><i class="fas fa-tachometer-alt"></i>Home</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'love:users_detail_urls' user.slug %}"><i class="far fa-address-book"></i>Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'love:users_urls' %}"><i class="far fa-clone"></i>Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'love:author_quotes_urls' user.slug %}"><i class="far fa-calendar-alt"></i>I'm author</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'love:editor_quotes_urls' user.slug %}"><i class="far fa-chart-bar"></i>I'm editor</a>
+            </li>
+        </ul>
+    </div>
+</nav>

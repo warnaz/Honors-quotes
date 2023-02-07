@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load quotes_tag %}
+
+{% block link_css %}
+<title>Search</title>
+{% endblock %}
+
+
+{% block user %}
+{% for i in qs_prof %}
+<h2 style="margin-top: 20px; margin-left: 30px;"><a href="{% url 'love:users_detail_urls' i.slug %}" style="color: black;">{{ i }}</a></h2>
+{% endfor %}
+{% endblock %}
+
+
+{% block content %}
+
+{% show_quotes request=request name='search' %}
+
+{% endblock %}
+

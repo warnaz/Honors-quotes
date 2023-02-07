@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/variable-pie.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    <figure class="highcharts-figure">
+        <div id="container"></div>
+    </figure>
+</body>
+<script>
+    // Data retrieved from https://worldpopulationreview.com/country-rankings/countries-by-density
+    Highcharts.chart('container', {
+        chart: {
+            type: 'variablepie'
+        },
+        title: {
+            text: 'Статистика пользователя'
+        },
+        series: [{
+            minPointSize: 10,
+            innerSize: '20%',
+            zMin: 0,
+            name: 'countries',
+            data: [{
+                name: 'Spain',
+                y: 505992,
+                z: 92
+            },{
+                
+            }]
+        }]
+    });
+</script>
+
+</html>

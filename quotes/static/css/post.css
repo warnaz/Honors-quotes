@@ -1,0 +1,57 @@
+.createPost {
+    background-color: white;
+    box-shadow: 0 2px 5px 0 var(--shadow);
+    border-radius: 20px;
+    padding: 15px;
+    margin-bottom: 20px;
+    min-width: 325px;
+}
+.forms-category{
+    min-width: 150px;
+}
+
+.post-text {
+    
+    width: 100%;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+
+.post-text textarea {
+    resize: none;
+    background-color: rgb(241, 243, 245);
+    width: 100%;
+    border: none;
+    height: 150px;
+    border-radius: 10px;
+    box-shadow: 1px 8px 5px 0;
+    color: var(--black);
+    margin-bottom: 4px;
+    padding: 10px;
+    border-top: 1px solid #e3e4e8;
+    border-bottom: 1px solid #e3e4e8;
+}
+
+.mini-headign {
+    text-transform: uppercase;
+    color: darkslategray;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.forms-author {
+    display: inline-block;
+    width: 100px;
+
+}
+
+.forms-design {
+    display: inline-block;
+    width: 110px;
+}
+
+.forms-quote{
+    margin-bottom: 30px;
+}
+

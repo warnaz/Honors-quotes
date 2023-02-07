@@ -1,0 +1,147 @@
+
+
+<div class="container m-auto">
+    <div class="lg:flex justify-center lg:space-x-10 lg:space-y-0 space-y-5">
+        <!-- left sidebar-->
+        <div class="space-y-5 flex-shrink-0 lg:w-7/12">
+
+            <!-- post 1-->
+            {% for post in qs %}
+            <div class="bg-white shadow rounded-md  -mx-2 lg:mx-0">
+                <!-- post header-->
+                <div class="flex justify-between items-center px-4 py-3">
+
+                    <div class="flex flex-1 items-center space-x-4">
+
+                        <span class="block font-semibold "><a
+                                href="{% url 'profile:users_detail_urls' post.editor.slug %}">@{{post.editor}}</a>
+                        </span>
+
+                    </div>
+                    <div style="padding-right: 15px;">
+                        {{ post.created }}
+
+                    </div>
+
+                    {% if user == post.editor %}
+                    <div>
+                        <a href="{% url 'love:change_quotes_urls' post.id %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25"
+                                viewBox="0 0 50 50">
+                                <path
+                                    d="M 43.050781 1.9746094 C 41.800781 1.9746094 40.549609 2.4503906 39.599609 3.4003906 L 38.800781 4.1992188 L 45.699219 11.099609 L 46.5 10.300781 C 48.4 8.4007812 48.4 5.3003906 46.5 3.4003906 C 45.55 2.4503906 44.300781 1.9746094 43.050781 1.9746094 z M 37.482422 6.0898438 A 1.0001 1.0001 0 0 0 36.794922 6.3925781 L 4.2949219 38.791016 A 1.0001 1.0001 0 0 0 4.0332031 39.242188 L 2.0332031 46.742188 A 1.0001 1.0001 0 0 0 3.2578125 47.966797 L 10.757812 45.966797 A 1.0001 1.0001 0 0 0 11.208984 45.705078 L 43.607422 13.205078 A 1.0001 1.0001 0 1 0 42.191406 11.794922 L 9.9921875 44.09375 L 5.90625 40.007812 L 38.205078 7.8085938 A 1.0001 1.0001 0 0 0 37.482422 6.0898438 z">
+                                </path>
+                            </svg>
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+                <!-- LIST POST  -->
+                <div class="py-3 px-4 space-y-3">
+
+                    {% if post.design == 'D1' %}
+                    {% include 'design/d1.html' with post=post %}
+                    {% elif post.design == 'D2' %}
+                    {% include 'design/d2.html' with post=post %}
+                    {% else %}
+                    {% include 'design/d3.html' with post=post %}
+                    {% endif %}
+
+                    <!-- LIKE  -->
+                    <div class="flex space-x-4 lg:font-bold">
+                        <div class="p-2 rounded-full text-black">
+
+
+                            <form action="{% url 'love:like_urls' %}" method="POST" class="like-form" id={{post.id}}>
+                                {% csrf_token %}
+                                <input type="hidden" name="post_id" value={{post.id}}>
+
+                                {% if user in post.liked.all %}
+                                <button type="submit" class="like_btn{{ post.id }}" name='liked' style="color:#0a8635;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                        width="25" height="25" class="">
+                                        <path
+                                            d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
+                                    </svg>
+                                </button>
+                                {% else %}
+                                <button type="submit" class="like_btn{{ post.id }}" name="unliked">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                        width="25" height="25" class="">
+                                        <path
+                                            d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
+                                    </svg>
+                                </button>
+                                {% endif %}
+
+                                <div class="like-count{{ post.id }}"> {{post.liked.count}} </div>
+                            </form>
+                        </div>
+                        <!-- Comment -->
+                        <a href="{% url 'love:quote_detail_urls' post.id %}" class="flex items-center space-x-2">
+                            <div class="p-2 rounded-full text-black">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                    width="25" height="25" class="">
+                                    <path fill-rule="evenodd"
+                                        d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            {{ post.quotes_comment.all.count }} Comments
+
+                        </a>
+                    </div>
+
+                        <div>
+                            {% for cat in post.category.all %}
+                            <span style="color: gray; font-size: 16px;">{{cat}}</span>
+                            {% endfor %}
+                        </div>
+
+                </div>
+
+            </div>
+            {% endfor %}
+
+
+
+
+        </div>
+
+        <!-- right sidebar-->
+        <!-- Здесь может быть статистика маленькая -->
+        <div class="lg:w-5/12">
+
+            <div class="bg-white  shadow-md rounded-md overflow-hidden">
+
+                <div class="divide-gray-300 divide-gray-50 divide-opacity-50 divide-y px-4 ">
+                    {% for suggestion in suggestions_username_profile_list %}
+                    <div class="flex items-center justify-between py-3">
+                        <div class="flex flex-1 items-center space-x-4">
+                            <a href="/profile/{{suggestion.user}}">
+                                <img src="{{suggestion.profileimg.url}}" class="bg-gray-200 rounded-full w-10 h-10">
+                            </a>
+                            <div class="flex flex-col">
+                                <span class="block capitalize font-semibold"> {{suggestion.user}} </span>
+                                <span class="block capitalize text-sm"> {{suggestion.bio}} </span>
+                            </div>
+                        </div>
+
+                        <a href="/profile/{{suggestion.user}}"
+                            class="border border-gray-200 font-semibold px-4 py-1 rounded-full hover:bg-pink-600 hover:text-white hover:border-pink-600 ">
+                            View User </a>
+                    </div>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+
+</div>
