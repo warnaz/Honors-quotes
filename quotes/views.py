@@ -19,6 +19,7 @@ from quotes.business.quotes_logic import create_quote
 
 @login_required
 def create_view(request):
+    print('Hello, Git!')
     quote_form = QuotesModelForm()
     comment_form = CommentModelForm()
     user = queryset.get_profile(request.user)
